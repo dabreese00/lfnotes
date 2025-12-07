@@ -2,8 +2,9 @@ import { DocHandle, Repo, isValidAutomergeUrl } from "@automerge/automerge-repo"
 import { IndexedDBStorageAdapter } from "@automerge/automerge-repo-storage-indexeddb"
 import { BrowserWebSocketClientAdapter } from "@automerge/automerge-repo-network-websocket"
 import { BroadcastChannelNetworkAdapter } from "@automerge/automerge-repo-network-broadcastchannel"
-import { init } from "@automerge/prosemirror"
-import { EditorState } from "prosemirror-state"
+import { next as am } from "@automerge/automerge"
+import { syncPlugin, basicSchemaAdapter, pmDocFromSpans } from "@automerge/prosemirror"
+import { EditorState, Transaction } from "prosemirror-state"
 import { EditorView } from "prosemirror-view"
 import { exampleSetup } from "prosemirror-example-setup"
 import "prosemirror-example-setup/style/style.css"
@@ -34,21 +35,17 @@ if (docUrl && isValidAutomergeUrl(docUrl)) {
 // Wait for the handle to be available
 // await handle.whenReady()
 
-// This is the integration with automerge.
-const { schema, doc, plugin } = init(handle, ["text"])
-const editorConfig = {
-  schema,
-  plugins: [plugin],
-  doc: doc,
-}
-// debug
-window.ec = editorConfig;
-// This is the prosemirror editor.
+const adapter = basicSchemaAdapter
+
 const view = new EditorView(document.querySelector("#app"), {
   state: EditorState.create({
-    schema, // Note that we initialize using the mirror
-    plugins: exampleSetup({ schema, plugins: [plugin] }),
-    // plugins: [plugin],
-    doc: doc,
+    doc: pmDocFromSpans(adapter, am.spans(handle.doc(), ["text"])),
+    plugins: [
+      ...exampleSetup({ schema: adapter.schema }),
+      syncPlugin({ adapter, handle, path: ["text"] }),
+    ],
   }),
+  dispatchTransaction: (tx) => {
+    view.updateState(view.state.apply(tx))
+  },
 })
