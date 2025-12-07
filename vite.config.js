@@ -7,7 +7,7 @@ export default defineConfig({
     wasm(),
     topLevelAwait()
   ],
-  build: {
-    sourcemap: true,
-  },
+//   build: {
+//     sourcemap: true,
+//   },
 });

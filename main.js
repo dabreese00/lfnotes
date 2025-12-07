@@ -33,7 +33,7 @@ if (docUrl && isValidAutomergeUrl(docUrl)) {
   window.location.hash = handle.url
 }
 // Wait for the handle to be available
-// await handle.whenReady()
+await handle.whenReady()
 
 const adapter = basicSchemaAdapter
 
