@@ -1,0 +1,24 @@
+{
+  "name": "lfnotes",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^7.2.4",
+    "vite-plugin-top-level-await": "^1.6.0",
+    "vite-plugin-wasm": "^3.5.0"
+  },
+  "dependencies": {
+    "@automerge/automerge-repo": "^2.5.0",
+    "@automerge/automerge-repo-network-broadcastchannel": "^2.5.0",
+    "@automerge/automerge-repo-network-websocket": "^2.5.0",
+    "@automerge/automerge-repo-storage-indexeddb": "^2.5.0",
+    "@automerge/prosemirror": "^0.1.0",
+    "prosemirror-example-setup": "^1.2.3"
+  }
+}
