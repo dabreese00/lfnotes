@@ -14,7 +14,7 @@ const repo = new Repo({
   storage: new IndexedDBStorageAdapter("automerge"),
   network: [
     new BroadcastChannelNetworkAdapter(),
-    new BrowserWebSocketClientAdapter("wss://sync.automerge.org"),
+    new BrowserWebSocketClientAdapter("wss://amsync.dokku01.dabreese00.net"),
   ],
 })
 
