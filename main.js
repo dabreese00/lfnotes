@@ -31,8 +31,8 @@ if (docUrl && isValidAutomergeUrl(docUrl)) {
   handle = repo.create({ text: "" })
   window.location.hash = handle.url
 }
-// Wait for the handle to be available
-// await handle.whenReady()
+Wait for the handle to be available
+await handle.whenReady()
 
 // This is the integration with automerge.
 const { schema, doc, plugin } = init(handle, ["text"])
